@@ -8,7 +8,7 @@ services:
     ports: 
       - "80:8081"
     volumes: 
-      - $PWD/data/network_management/:/webapp
+      - $PWD/code:/code
     depends_on:
       - postgres
       - mysql 
