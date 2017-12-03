@@ -1,5 +1,10 @@
-FROM namic:5000/minion_build
+FROM namic:5000/osx-alpine-base-minion
 
-RUN apt-get -y install libdbd-mysql-perl
+RUN apk add perl-dbd-mysql
 
-COPY ./db_ready.pl /bin/db_ready.pl
+WORKDIR data
+
+ADD ./wait-for-it.sh /data/wait-for-it.sh
+ADD ./data data
+
+CMD ./wait-for-it.sh mysql:3306 -- ./worker.pl

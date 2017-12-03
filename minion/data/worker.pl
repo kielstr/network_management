@@ -10,6 +10,7 @@ use DBI;
 
 
 # tc -s -d class show dev eth0
+# watch  tc -s -d class show dev eth0
 
 say "CONNECTION_STRING: $CONNECTION_STRING";
 say "NUMBER_OF_JOBS: $NUMBER_OF_JOBS";

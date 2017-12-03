@@ -1,5 +1,6 @@
-#FROM namic:5000/osx-webapp-base AS network-management
-FROM namic:5000/rpi-webapp-base AS network-management
+FROM namic:5000/osx-alpine-base-webapp AS network-management
+
+RUN cpanm --no-wget -i -n Minion
 
 WORKDIR webapp
 
