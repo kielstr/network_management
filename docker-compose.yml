@@ -1,4 +1,4 @@
-version: '3.3'
+version: '2.1'
 
 services:
   network-management:
@@ -17,7 +17,7 @@ services:
 
   mysql:
     container_name: mysql
-    image: kiels-laptop:5000/mysql
+    image: namic:5000/mysql
     environment:
       - MYSQL_DATABASES=network_management
       - MYSQL_ROOT_PASSWORD=Tripper
@@ -37,14 +37,14 @@ services:
       - "5432:5432"
     volumes:
       - "$PWD/postgres/data:/var/lib/postgresql"
-    image: kiels-laptop:5000/postgres:9.6.3
+    image: namic:5000/postgres:9.6.3
     build: $PWD/postgres
     env_file:
       - db.env
 
   minion_worker: 
     container_name: minion_worker
-    image: kiels-laptop:5000/minion_build
+    image: namic:5000/minion_build
     build: $PWD/minion
     command: /data/wait-for-it.sh mysql:3306 -- /data/worker.pl
     volumes:
