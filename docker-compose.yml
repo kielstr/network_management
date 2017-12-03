@@ -46,7 +46,7 @@ services:
     container_name: minion_worker
     image: namic:5000/minion_build
     build: $PWD/minion
-    command: /data/wait-for-it.sh mysql:3306 -- /data/worker.pl
+    command: ./db_ready.pl ./worker.pl
     volumes:
       - $PWD/minion/data:/data
     environment:
