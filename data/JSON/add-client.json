@@ -25,9 +25,9 @@
 			"hostname":"isacs-laptop",
 			"macaddr": "38:b1:db:90:73:89",
 			"ip": "192.168.1.7",
-			"queue_id": "1:30",
+			"queue_id": "1:21",
 			"rate": "3mbit",
-			"ceiling":"3mbit",
+			"ceiling":"6mbit",
 			"prio": 2
 		},
 		{
@@ -35,9 +35,9 @@
 			"hostname":"isacs-playstation",
 			"macaddr":"c0:38:96:ad:01:59",
 			"ip": "192.168.1.8",
-			"queue_id": "1:31",
+			"queue_id": "1:22",
 			"rate": "3mbit",
-			"ceiling":"3mbit",
+			"ceiling":"6mbit",
 			"prio": 1
 		},
 		{
@@ -45,9 +45,9 @@
 			"hostname":"isacs-phone",
 			"macaddr": "38:f8:89:ec:5a:06",
 			"ip": "192.168.1.9",
-			"queue_id": "1:32",
+			"queue_id": "1:23",
 			"rate": "3mbit",
-			"ceiling":"3mbit",
+			"ceiling":"6mbit",
 			"prio": 3
 		},
 		{
@@ -55,9 +55,9 @@
 			"hostname":"isacs-phone2",
 			"macaddr": "98:0c:82:26:ca:53",
 			"ip": "192.168.1.13",
-			"queue_id": "1:33",
+			"queue_id": "1:24",
 			"rate": "3mbit",
-			"ceiling":"3mbit",
+			"ceiling":"6mbit",
 			"prio": 3
 		},
 		{
@@ -65,9 +65,9 @@
 			"hostname":"isacs-ipad",
 			"macaddr": "24:a2:e1:04:53:f4",
 			"ip": "192.168.1.12",
-			"queue_id": "1:34",
+			"queue_id": "1:25",
 			"rate": "3mbit",
-			"ceiling":"3mbit",
+			"ceiling":"6mbit",
 			"prio": 4
 		},
 
@@ -76,9 +76,9 @@
 			"hostname":"evies-ipad",
 			"macaddr": "5c:f7:e6:20:35:8d",
 			"ip": "192.168.1.23",
-			"queue_id": "1:40",
+			"queue_id": "1:31",
 			"rate": "3mbit",
-			"ceiling":"3mbit",
+			"ceiling":"6mbit",
 			"prio": 1
 		},
 		{
@@ -86,9 +86,9 @@
 			"hostname":"evies-laptop",
 			"macaddr": "00:16:ea:88:b1:8e",
 			"ip": "192.168.1.22",
-			"queue_id": "1:41",
+			"queue_id": "1:32",
 			"rate": "3mbit",
-			"ceiling":"3mbit",
+			"ceiling":"6mbit",
 			"prio": 2
 		},
 
@@ -96,8 +96,8 @@
 			"owner":"evie",
 			"hostname":"evies-tablet",
 			"macaddr": "14:dd:a9:46:b7:80",
-			"ip": "192.168.1.21",
-			"queue_id": "1:42",
+			"ip": "192.168.1.33",
+			"queue_id": "1:34",
 			"rate": "3mbit",
 			"ceiling":"3mbit",
 			"prio": 3
@@ -108,7 +108,7 @@
 			"hostname":"elizas-tablet",
 			"macaddr": "14:dd:a9:46:bf:e4",
 			"ip": "192.168.1.40",
-			"queue_id": "1:50",
+			"queue_id": "1:41",
 			"rate": "3mbit",
 			"ceiling":"3mbit",
 			"prio": 1
@@ -119,7 +119,7 @@
 			"hostname":"sarahs-phone",
 			"macaddr": "f8:a9:d0:4d:aa:e0",
 			"ip": "192.168.1.50",
-			"queue_id": "1:20",
+			"queue_id": "1:51",
 			"rate": "6mbit",
 			"ceiling":"6mbit",
 			"prio": 1
@@ -130,7 +130,7 @@
 			"hostname":"sarahs-laptop",
 			"macaddr": "64:80:99:FB:56:44",
 			"ip": "192.168.1.51",
-			"queue_id": "1:21",
+			"queue_id": "1:52",
 			"rate": "6mbit",
 			"ceiling":"6mbit",
 			"prio": 1
@@ -171,8 +171,8 @@
 		{
 			"owner": "kiel",
 			"queue_id": "1:10",
-			"rate": "6mbit",
-			"ceiling":"6mbit",
+			"rate": "11mbit",
+			"ceiling":"11mbit",
 			"prio": 1
 		},
 		{

@@ -8,6 +8,9 @@ use Env qw(CONNECTION_STRING NUMBER_OF_JOBS);
 use feature 'say';
 use DBI;
 
+
+# tc -s -d class show dev eth0
+
 say "CONNECTION_STRING: $CONNECTION_STRING";
 say "NUMBER_OF_JOBS: $NUMBER_OF_JOBS";
 
@@ -18,29 +21,33 @@ my $dbh = DBI->connect($dsn, 'nm', 'Tripper') or die DBI->errstr;
 
 $minion->add_task(create_control_network => sub {
 
+	open my $output_file, '>', '/data/control_network' or die $!;
+
 	my ( $job, @args ) = @_;
 
 	my $queues = $dbh->selectall_hashref('SELECT * FROM queue', 'id')
-		or die $dbh->errstr;;
+		or die $dbh->errstr;
 
 	my $clients = $dbh->selectall_hashref('SELECT b.queue_id as parent_id, a.queue_id as class_id, a.rate as rate, a.ceiling as ceiling, a.prio as prio, a.hostname as hostname FROM client a JOIN queue b ON a.owner = b.owner', 'class_id')
 		or die $dbh->errstr;
 
-	say _gen_header();
+	print $output_file _gen_header();
 
 	for my $parent_id ( keys %$queues ) {
 		my $queue_cfg = $queues->{$parent_id};
-		say _gen_parent_queue($queue_cfg->{queue_id}, $queue_cfg->{rate}, $queue_cfg->{ceiling}, $queue_cfg->{prio});
+		print $output_file _gen_parent_queue($queue_cfg->{queue_id}, $queue_cfg->{rate}, $queue_cfg->{ceiling}, $queue_cfg->{prio});
 
 	}
 	
 	for my $client_id ( keys %$clients ) {
-		say _gen_client( map { $clients->{ $client_id }{ $_ } } qw(parent_id class_id rate ceiling prio hostname) );
+		print $output_file _gen_client( map { $clients->{ $client_id }{ $_ } } qw(parent_id class_id rate ceiling prio hostname) );
 	}
 	
-	say _gen_footer();
+	print $output_file _gen_footer();
 
-	#say Dumper $clients;
+	say "Created file control_network";
+
+	$output_file->close;
 
 });
 
@@ -103,12 +110,13 @@ tc class add dev eth0 parent 1:1 classid $class_id htb rate $rate ceil $ceiling 
 }
 
 sub _gen_client {
-	my ($parent_class, $class_id, $rate, $ceiling, $prio, $hostname) = @_;
+	my ( $parent_class, $class_id, $rate, $ceiling, $prio, $hostname ) = @_;
+	my ( undef, $fw_mark ) = split ':', $class_id;
 qq/
 tc class add dev eth0 parent $parent_class classid $class_id htb rate $rate ceil $ceiling prio $prio
-tc filter add dev eth0 parent 1:0 protocol ip prio $prio handle $class_id fw classid $class_id
+tc filter add dev eth0 parent 1:0 protocol ip prio $prio handle $fw_mark fw classid $class_id
 
-iptables -t mangle -A POSTROUTING -d $hostname -j MARK --set-mark $class_id
+iptables -t mangle -A POSTROUTING -d $hostname -j MARK --set-mark $fw_mark
 iptables -t mangle -A POSTROUTING -d $hostname -j RETURN
 /;
 

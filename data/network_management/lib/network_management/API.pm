@@ -141,7 +141,6 @@ post '/add-client' => sub {
         )
     /;
 
-
     for my $client ( @{ $params->{clients} } ) {
         
         for my $requirement ( qw(macaddr ip queue_id rate ceiling hostname owner) ) {
@@ -156,9 +155,7 @@ post '/add-client' => sub {
             }
         }
 
-
-
-        unless ( $err->{ 'code' } == 400 ) {
+        unless ( defined $err->{ 'code' } and $err->{ 'code' } == 400 ) {
             try {
                $database->do( $sql, {}, 
                     $client->{ 'macaddr' },
@@ -196,7 +193,7 @@ post '/add-client' => sub {
     $return->{ clients_successful } = int @successful
         if @successful;
 
-    if ( $err->{ 'code' } ) {
+    if ( defined $err->{ 'code' } and $err->{ 'code' } ) {
         status $err->{ 'code' };
         $return->{ error_msg } = $err->{ 'text' };
     } 
