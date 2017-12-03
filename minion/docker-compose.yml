@@ -1,4 +1,0 @@
-minion:
-    image: minion_build
-    volumes:
-        - $PWD/data:/data

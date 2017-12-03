@@ -1,0 +1,35 @@
+
+*** These modified files were found in JOE when it aborted on Thu Nov 30 18:44:22 2017
+*** JOE was aborted by UNIX signal 15
+
+*** File '(Unnamed)'
+exit
+qui
+Z
+help
+help
+current
+configs
+local
+sdlocal
+volumes_from
+
+*** File '(Unnamed)'
+docker-compose-swam.yml
+docker-compose-swam.yml
+docker-compose-swam.yml
+docker-compose-swam.yml
+docker-compose-swam.yml
+/Users/kiel/.ssh/known_hosts
+/Users/kiel/.ssh/known_hosts
+.bash_profile
+.bash_profile
+Dockerfile
+docker-compose
+docker-compose
+
+*** File '* Startup Log *'
+Processing '/Users/kiel/.jpicorc'...
+Processing '/usr/local/Cellar/joe/4.3/etc/joe/ftyperc'...
+Finished processing /usr/local/Cellar/joe/4.3/etc/joe/ftyperc
+Finished processing /Users/kiel/.jpicorc

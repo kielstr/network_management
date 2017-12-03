@@ -1,0 +1,16 @@
+curl \
+	-H "Content-Type: application/json" \
+	-X POST \
+	-d '{"macaddr":"b8:e8:56:33:8c:30", "ip":"192.168.1.6", "queue":"1:12", "rate":"11mbit", "owner":"kiel","dnsname":"kiels-laptop", "ceiling":"11mbit"}' \
+	http://localhost/api/add-client | jq
+
+# Add kiels laptop
+curl -H "Content-Type: application/json" -X POST -d '{"macaddr":"b8:e8:56:33:8c:30", "ip":"192.168.1.6", "queue_id":"1:12", "rate":"11mbit", "owner":"kiel","dnsname":"kiels-laptop", "ceiling":"11mbit"}' http://localhost/api/add-client | jq
+
+
+# add queue
+curl -H "Content-Type: application/json" -X POST -d '{"name":"kiels-queue", "queue_id":"1:12"}' http://localhost/api/add-queue | jq
+
+
+curl -vX POST http://localhost/api/add-client -d @JSON/clients.json --header "Content-Type: application/json"  | jq
+

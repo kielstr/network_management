@@ -1,0 +1,24 @@
+#!/usr/bin/env perl
+
+use strict;
+use warnings;
+use Minion;
+use Data::Dumper 'Dumper';
+
+# Connect to backend
+my $minion = Minion->new(Pg => 'postgresql://kiel:Tripper@kiels-laptop/test');
+
+# Start a worker to perform up to 12 jobs concurrently
+
+$minion->add_task(build_img => sub {
+  my $job = shift;
+  sleep 10;
+  print Dumper $job;
+});
+
+
+my $worker = $minion->worker;
+
+$worker->status->{jobs} = 12;
+
+$worker->run;
