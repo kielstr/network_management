@@ -1,0 +1,20 @@
+FROM debian
+
+RUN apt-get -y update
+
+RUN apt-get -y install \
+	apt-utils \
+	curl \
+	perl-modules-5.24 \
+	build-essential \
+	starman \
+	libplack-middleware-deflater-perl \
+	procps \
+	libnet-address-ip-local-perl \
+	less \
+	joe
+
+RUN curl -L http://cpanmin.us | perl - App::cpanminus
+RUN cpanm -i -n Mojolicious
+RUN cpanm -i -n Minion
+RUN cpanm -i -n Mojo::Pg
