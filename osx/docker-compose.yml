@@ -11,32 +11,31 @@ services:
       - $PWD/code:/code
     depends_on:
       - postgres
-      - mysql 
       - minion_worker    
     command: plackup -R lib bin -s Starman --workers=10 -p 8081 -a bin/app.psgi
 
-  mysql:
-    container_name: mysql
-    image: namic:5000/mysql
-    environment:
-      - MYSQL_DATABASES=network_management
-      - MYSQL_ROOT_PASSWORD=Tripper
-      - MYSQL_HOST=127.0.0.1
-      - MYSQL_PORT=3306
-      - MYSQL_USER=nm
-      - MYSQL_PASSWORD=Tripper
-      - MYSQL_MY_DATABASE=network_management
-    volumes:
-      - $PWD/data/mysql:/var/lib/mysql
-    ports:
-      - "3306:3306"
+#  mysql:
+#    container_name: mysql
+#    image: namic:5000/mysql
+#    environment:
+#      - MYSQL_DATABASES=network_management
+#      - MYSQL_ROOT_PASSWORD=Tripper
+#      - MYSQL_HOST=127.0.0.1
+#      - MYSQL_PORT=3306
+#      - MYSQL_USER=nm
+#      - MYSQL_PASSWORD=Tripper
+#      - MYSQL_MY_DATABASE=network_management
+#    volumes:
+#      - $PWD/data/mysql:/var/lib/mysql
+#    ports:
+#      - "3306:3306"
 
   postgres:
     container_name: postgres
     ports:
       - "5432:5432"
     volumes:
-      - "$PWD/postgres/data:/var/lib/postgresql"
+      - $PWD/data/postgres/:/var/lib/postgresql/data
     image: namic:5000/postgres:9.6.3
     build: $PWD/postgres
     env_file:
@@ -56,6 +55,5 @@ services:
       - db.env
     depends_on:
       - postgres
-      - mysql
     tty: true
 

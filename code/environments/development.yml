@@ -25,12 +25,12 @@ startup_info: 1
 
 plugins:
   Database:
-    driver: 'mysql'
+    driver: 'postgres'
     database: 'network_management'
     host: 'mysql'
-    port: 3306
-    username: 'nm'
-    password: 'Tripper'
+    port: 5432
+    username: 'mic'
+    password: 'mic'
     connection_check_threshold: 10
     dbi_params:
       RaiseError: 1

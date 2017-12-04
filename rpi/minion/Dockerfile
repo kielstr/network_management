@@ -1,7 +1,7 @@
 FROM namic:5000/rpi-alpine-base-minion
 
-WORKDIR data
+WORKDIR code
 
-ADD ./data data
+ADD ./data code
 
 CMD ./db_ready.pl ./worker.pl

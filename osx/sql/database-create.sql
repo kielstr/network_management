@@ -1,32 +1,31 @@
 
-CREATE TABLE `queue` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `owner` varchar(45) NOT NULL UNIQUE,
-  `queue_id` varchar(45) NOT NULL UNIQUE,
-  `prio` int(11) DEFAULT 1,
-  `rate` varchar(45) DEFAULT "2mbit",
-  `ceiling` varchar(45) DEFAULT "2mbit",
-  PRIMARY KEY (`id`),
-  UNIQUE KEY `id` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=latin1;
+CREATE DATABASE network_management;
 
+\c network_management;
 
-CREATE TABLE `client` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `macaddr` varchar(45) NOT NULL UNIQUE,
-  `hostname` varchar(45) NOT NULL UNIQUE,
-  `ip` varchar(45) DEFAULT NULL UNIQUE,
-  `owner` varchar(45) NOT NULL,
-  `rate` varchar(45) DEFAULT "2mbit",
-  `ceiling` varchar(45) DEFAULT "2mbit",
-  `queue_id` varchar(45),
-  `prio` int(11) DEFAULT 1,
-  PRIMARY KEY (`id`),
-  UNIQUE KEY `id` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=latin1;
+CREATE TABLE queue (
+  id integer,
+  owner varchar(45),
+  queue_id varchar(45),
+  prio integer,
+  rate varchar(45),
+  ceiling varchar(45)
+);
 
-CREATE TABLE `status` (
-  `apply` int(1) NOT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=latin1;
+CREATE TABLE client (
+  id integer,
+  macaddr varchar(45),
+  hostname varchar(45),
+  ip varchar(45),
+  owner varchar(45),
+  rate varchar(45),
+  ceiling varchar(45),
+  queue_id varchar(45),
+  prio integer
+);
+
+CREATE TABLE status (
+  apply integer
+);
 
 INSERT INTO status VALUES (1);

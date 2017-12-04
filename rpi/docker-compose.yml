@@ -10,46 +10,38 @@ services:
     volumes: 
       - $PWD/code:/code
     depends_on:
-      - mysql 
+      - postgres
       - minion_worker    
     command: plackup -R lib bin -s Starman --workers=10 -p 8081 -a bin/app.psgi
-  mysql:
-    container_name: nw-mysql
-    image: namic:5000/mysql
-    environment:
-      - MYSQL_DATABASES=network_management
-      - MYSQL_ROOT_PASSWORD=Tripper
-      - MYSQL_HOST=127.0.0.1
-      - MYSQL_PORT=3306
-      - MYSQL_USER=nm
-      - MYSQL_PASSWORD=Tripper
-      - MYSQL_MY_DATABASE=network_management
-    volumes:
-      - $PWD/data/mysql:/var/lib/mysql
-    ports:
-      - "3306:3306"
-#  postgres:
-#    container_name: nw-postgres
-#    ports:
-#      - "5432:5432"
+
+#  mysql:
+#    container_name: mysql
+#    image: namic:5000/mysql
+#    environment:
+#      - MYSQL_DATABASES=network_management
+#      - MYSQL_ROOT_PASSWORD=Tripper
+#      - MYSQL_HOST=127.0.0.1
+#      - MYSQL_PORT=3306
+#      - MYSQL_USER=nm
+#      - MYSQL_PASSWORD=Tripper
+#      - MYSQL_MY_DATABASE=network_management
 #    volumes:
-#      - "$PWD/postgres/data:/var/lib/postgresql"
-#    image: namic:5000/postgres:9.6.3
-#    build: $PWD/postgres
-#    env_file:
-#      - db.env
-  minion_worker: 
-    container_name: mw-minion-worker
-    image: namic:5000/rpi-nv-minion-worker
-    build: $PWD/minion
-    command: ./db_ready.pl ./worker.pl
+#      - $PWD/data/mysql:/var/lib/mysql
+#    ports:
+#      - "3306:3306"
+
+  postgres:
+    container_name: rpi-postgres
+    ports:
+      - "5432:5432"
     volumes:
-      - $PWD/minion/data:/data
-    environment:
-      CONNECTION_STRING: "{mysql => 'mysql://mn:Tripper@mysql/minion_jobs'}"
-      NUMBER_OF_JOBS: 12
+      - $PWD/data/postgres/:/var/lib/postgresql/data
+    image: namic:5000/rpi-postgres:9.6.3
+    build: $PWD/postgres
     env_file:
       - db.env
-    depends_on:
-      - mysql
 
+  minion_worker: 
+    container_name: rpi-minion_worker
+    image: namic:5000/rpi-minion_worker
+      - postgres

@@ -6,17 +6,20 @@ use feature 'say';
 use Env qw( POSTGRES_DB POSTGRES_USER POSTGRES_PASSWORD POSTGRES_HOST );
 use DBI;
 
-my ( $dbh_mysql );
-my $dsn = "DBI:mysql:database=network_management;host=mysql;port=3306";
+my ( $dbh_pg );
 
-until ( $dbh_mysql ) {
+until ( $dbh_pg ) {
 
-	$dbh_mysql = DBI->connect($dsn, 'nm', 'Tripper');
+	$dbh_pg = DBI->connect( 
+		"dbi:Pg:dbname=mic;host=postgres", 
+		'mic',
+		'mic'
+	) ;
 
 	sleep 1;
 	say 'waiting for database to allow connections';
 }
 
-$dbh_mysql->disconnect;
+$dbh_pg->disconnect;
 
 exec @ARGV;
