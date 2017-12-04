@@ -1,9 +1,7 @@
-FROM namic:5000/osx-alpine-base-minion
+FROM namic:5000/rpi-alpine-base-minion
 
-RUN apk add perl-dbd-mysql
+WORKDIR code
 
-WORKDIR data
-
-ADD ./data data
+ADD ./data code
 
 CMD ./db_ready.pl ./worker.pl

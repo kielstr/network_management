@@ -15,10 +15,10 @@ use DBI;
 say "CONNECTION_STRING: $CONNECTION_STRING";
 say "NUMBER_OF_JOBS: $NUMBER_OF_JOBS";
 
-my $dsn = "DBI:mysql:database=network_management;host=mysql;port=3306";
+my $dsn = "dbi:Pg:dbname=network_management;host=postgres";
 
 my $minion = Minion->new( Pg => $CONNECTION_STRING );
-my $dbh = DBI->connect($dsn, 'nm', 'Tripper') or die DBI->errstr;
+my $dbh = DBI->connect($dsn, 'mic', 'mic') or die DBI->errstr;
 
 $minion->add_task(create_control_network => sub {
 
