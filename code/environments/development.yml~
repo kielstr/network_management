@@ -21,3 +21,19 @@ show_errors: 1
 
 # print the banner
 startup_info: 1
+
+
+plugins:
+  Database:
+    driver: 'Pg'
+    database: 'network_management'
+    host: 'postgres'
+    port: 5432
+    username: 'mic'
+    password: 'mic'
+    connection_check_threshold: 10
+    dbi_params:
+      RaiseError: 1
+      AutoCommit: 1
+    on_connect_do: ["SET NAMES 'utf8'", "SET CHARACTER SET 'utf8'" ]
+    log_queries: 1
