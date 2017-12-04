@@ -1,5 +1,9 @@
-FROM kiels-laptop:5000/minion_build
+FROM namic:5000/rpi-alpine-base-minion
 
-RUN apt-get -y install libdbd-mysql-perl
+RUN apk add perl-dbd-mysql
 
-COPY ./db_ready.pl /bin/db_ready.pl
+WORKDIR data
+
+ADD ./data data
+
+CMD ./db_ready.pl ./worker.pl

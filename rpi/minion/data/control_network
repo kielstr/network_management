@@ -44,46 +44,28 @@ tc class add dev eth0 parent 1: classid 1:1 htb rate 100mbit ceil 100mbit
 
 
 ####
+tc class add dev eth0 parent 1:1 classid 1:10 htb rate 11mbit ceil 11mbit prio 1
+
+####
+tc class add dev eth0 parent 1:1 classid 1:60 htb rate 6mbit ceil 6mbit prio 1
+
+####
+tc class add dev eth0 parent 1:1 classid 1:50 htb rate 6mbit ceil 6mbit prio 1
+
+####
 tc class add dev eth0 parent 1:1 classid 1:30 htb rate 6mbit ceil 6mbit prio 1
 
 ####
 tc class add dev eth0 parent 1:1 classid 1:40 htb rate 6mbit ceil 6mbit prio 1
 
 ####
-tc class add dev eth0 parent 1:1 classid 1:10 htb rate 11mbit ceil 11mbit prio 1
-
-####
-tc class add dev eth0 parent 1:1 classid 1:50 htb rate 6mbit ceil 6mbit prio 1
-
-####
-tc class add dev eth0 parent 1:1 classid 1:60 htb rate 6mbit ceil 6mbit prio 1
-
-####
 tc class add dev eth0 parent 1:1 classid 1:20 htb rate 6mbit ceil 6mbit prio 1
 
-tc class add dev eth0 parent 1:10 classid 1:12 htb rate 11mbit ceil 11mbit prio 2
-tc filter add dev eth0 parent 1:0 protocol ip prio 2 handle 12 fw classid 1:12
+tc class add dev eth0 parent 1:20 classid 1:23 htb rate 3mbit ceil 6mbit prio 3
+tc filter add dev eth0 parent 1:0 protocol ip prio 3 handle 23 fw classid 1:23
 
-iptables -t mangle -A POSTROUTING -d kiels-phone -j MARK --set-mark 12
-iptables -t mangle -A POSTROUTING -d kiels-phone -j RETURN
-
-tc class add dev eth0 parent 1:60 classid 1:61 htb rate 6mbit ceil 6mbit prio 1
-tc filter add dev eth0 parent 1:0 protocol ip prio 1 handle 61 fw classid 1:61
-
-iptables -t mangle -A POSTROUTING -d media-kiels-tv -j MARK --set-mark 61
-iptables -t mangle -A POSTROUTING -d media-kiels-tv -j RETURN
-
-tc class add dev eth0 parent 1:20 classid 1:21 htb rate 3mbit ceil 6mbit prio 2
-tc filter add dev eth0 parent 1:0 protocol ip prio 2 handle 21 fw classid 1:21
-
-iptables -t mangle -A POSTROUTING -d isacs-laptop -j MARK --set-mark 21
-iptables -t mangle -A POSTROUTING -d isacs-laptop -j RETURN
-
-tc class add dev eth0 parent 1:20 classid 1:25 htb rate 3mbit ceil 6mbit prio 4
-tc filter add dev eth0 parent 1:0 protocol ip prio 4 handle 25 fw classid 1:25
-
-iptables -t mangle -A POSTROUTING -d isacs-ipad -j MARK --set-mark 25
-iptables -t mangle -A POSTROUTING -d isacs-ipad -j RETURN
+iptables -t mangle -A POSTROUTING -d isacs-phone -j MARK --set-mark 23
+iptables -t mangle -A POSTROUTING -d isacs-phone -j RETURN
 
 tc class add dev eth0 parent 1:40 classid 1:41 htb rate 3mbit ceil 3mbit prio 1
 tc filter add dev eth0 parent 1:0 protocol ip prio 1 handle 41 fw classid 1:41
@@ -103,17 +85,17 @@ tc filter add dev eth0 parent 1:0 protocol ip prio 1 handle 31 fw classid 1:31
 iptables -t mangle -A POSTROUTING -d evies-ipad -j MARK --set-mark 31
 iptables -t mangle -A POSTROUTING -d evies-ipad -j RETURN
 
-tc class add dev eth0 parent 1:50 classid 1:52 htb rate 6mbit ceil 6mbit prio 1
-tc filter add dev eth0 parent 1:0 protocol ip prio 1 handle 52 fw classid 1:52
+tc class add dev eth0 parent 1:30 classid 1:34 htb rate 3mbit ceil 3mbit prio 3
+tc filter add dev eth0 parent 1:0 protocol ip prio 3 handle 34 fw classid 1:34
 
-iptables -t mangle -A POSTROUTING -d sarahs-laptop -j MARK --set-mark 52
-iptables -t mangle -A POSTROUTING -d sarahs-laptop -j RETURN
+iptables -t mangle -A POSTROUTING -d evies-tablet -j MARK --set-mark 34
+iptables -t mangle -A POSTROUTING -d evies-tablet -j RETURN
 
-tc class add dev eth0 parent 1:20 classid 1:23 htb rate 3mbit ceil 6mbit prio 3
-tc filter add dev eth0 parent 1:0 protocol ip prio 3 handle 23 fw classid 1:23
+tc class add dev eth0 parent 1:20 classid 1:21 htb rate 3mbit ceil 6mbit prio 2
+tc filter add dev eth0 parent 1:0 protocol ip prio 2 handle 21 fw classid 1:21
 
-iptables -t mangle -A POSTROUTING -d isacs-phone -j MARK --set-mark 23
-iptables -t mangle -A POSTROUTING -d isacs-phone -j RETURN
+iptables -t mangle -A POSTROUTING -d isacs-laptop -j MARK --set-mark 21
+iptables -t mangle -A POSTROUTING -d isacs-laptop -j RETURN
 
 tc class add dev eth0 parent 1:10 classid 1:11 htb rate 11mbit ceil 11mbit prio 1
 tc filter add dev eth0 parent 1:0 protocol ip prio 1 handle 11 fw classid 1:11
@@ -121,23 +103,17 @@ tc filter add dev eth0 parent 1:0 protocol ip prio 1 handle 11 fw classid 1:11
 iptables -t mangle -A POSTROUTING -d kiels-laptop -j MARK --set-mark 11
 iptables -t mangle -A POSTROUTING -d kiels-laptop -j RETURN
 
-tc class add dev eth0 parent 1:20 classid 1:24 htb rate 3mbit ceil 6mbit prio 3
-tc filter add dev eth0 parent 1:0 protocol ip prio 3 handle 24 fw classid 1:24
+tc class add dev eth0 parent 1:50 classid 1:52 htb rate 6mbit ceil 6mbit prio 1
+tc filter add dev eth0 parent 1:0 protocol ip prio 1 handle 52 fw classid 1:52
 
-iptables -t mangle -A POSTROUTING -d isacs-phone2 -j MARK --set-mark 24
-iptables -t mangle -A POSTROUTING -d isacs-phone2 -j RETURN
+iptables -t mangle -A POSTROUTING -d sarahs-laptop -j MARK --set-mark 52
+iptables -t mangle -A POSTROUTING -d sarahs-laptop -j RETURN
 
-tc class add dev eth0 parent 1:30 classid 1:34 htb rate 3mbit ceil 3mbit prio 3
-tc filter add dev eth0 parent 1:0 protocol ip prio 3 handle 34 fw classid 1:34
+tc class add dev eth0 parent 1:20 classid 1:25 htb rate 3mbit ceil 6mbit prio 4
+tc filter add dev eth0 parent 1:0 protocol ip prio 4 handle 25 fw classid 1:25
 
-iptables -t mangle -A POSTROUTING -d evies-tablet -j MARK --set-mark 34
-iptables -t mangle -A POSTROUTING -d evies-tablet -j RETURN
-
-tc class add dev eth0 parent 1:60 classid 1:62 htb rate 6mbit ceil 6mbit prio 1
-tc filter add dev eth0 parent 1:0 protocol ip prio 1 handle 62 fw classid 1:62
-
-iptables -t mangle -A POSTROUTING -d media-loungeroom-tv -j MARK --set-mark 62
-iptables -t mangle -A POSTROUTING -d media-loungeroom-tv -j RETURN
+iptables -t mangle -A POSTROUTING -d isacs-ipad -j MARK --set-mark 25
+iptables -t mangle -A POSTROUTING -d isacs-ipad -j RETURN
 
 tc class add dev eth0 parent 1:50 classid 1:51 htb rate 6mbit ceil 6mbit prio 1
 tc filter add dev eth0 parent 1:0 protocol ip prio 1 handle 51 fw classid 1:51
@@ -145,11 +121,35 @@ tc filter add dev eth0 parent 1:0 protocol ip prio 1 handle 51 fw classid 1:51
 iptables -t mangle -A POSTROUTING -d sarahs-phone -j MARK --set-mark 51
 iptables -t mangle -A POSTROUTING -d sarahs-phone -j RETURN
 
+tc class add dev eth0 parent 1:10 classid 1:12 htb rate 11mbit ceil 11mbit prio 2
+tc filter add dev eth0 parent 1:0 protocol ip prio 2 handle 12 fw classid 1:12
+
+iptables -t mangle -A POSTROUTING -d kiels-phone -j MARK --set-mark 12
+iptables -t mangle -A POSTROUTING -d kiels-phone -j RETURN
+
+tc class add dev eth0 parent 1:20 classid 1:24 htb rate 3mbit ceil 6mbit prio 3
+tc filter add dev eth0 parent 1:0 protocol ip prio 3 handle 24 fw classid 1:24
+
+iptables -t mangle -A POSTROUTING -d isacs-phone2 -j MARK --set-mark 24
+iptables -t mangle -A POSTROUTING -d isacs-phone2 -j RETURN
+
+tc class add dev eth0 parent 1:60 classid 1:62 htb rate 6mbit ceil 6mbit prio 1
+tc filter add dev eth0 parent 1:0 protocol ip prio 1 handle 62 fw classid 1:62
+
+iptables -t mangle -A POSTROUTING -d media-loungeroom-tv -j MARK --set-mark 62
+iptables -t mangle -A POSTROUTING -d media-loungeroom-tv -j RETURN
+
 tc class add dev eth0 parent 1:20 classid 1:22 htb rate 3mbit ceil 6mbit prio 1
 tc filter add dev eth0 parent 1:0 protocol ip prio 1 handle 22 fw classid 1:22
 
 iptables -t mangle -A POSTROUTING -d isacs-playstation -j MARK --set-mark 22
 iptables -t mangle -A POSTROUTING -d isacs-playstation -j RETURN
+
+tc class add dev eth0 parent 1:60 classid 1:61 htb rate 6mbit ceil 6mbit prio 1
+tc filter add dev eth0 parent 1:0 protocol ip prio 1 handle 61 fw classid 1:61
+
+iptables -t mangle -A POSTROUTING -d media-kiels-tv -j MARK --set-mark 61
+iptables -t mangle -A POSTROUTING -d media-kiels-tv -j RETURN
 
 #####################################################
 # ALL DYNAMIC HOSTS (192.168.1.100 - 192.168.1.200)
