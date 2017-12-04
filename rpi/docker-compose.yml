@@ -44,4 +44,14 @@ services:
   minion_worker: 
     container_name: rpi-minion_worker
     image: namic:5000/rpi-minion_worker
+    build: $PWD/minion
+    command: ./db_ready.pl ./worker.pl
+    volumes:
+      - $PWD/minion/data:/code
+    environment:
+      CONNECTION_STRING: 'postgresql://mic:mic@postgres/mic'
+      NUMBER_OF_JOBS: 12
+    env_file:
+      - db.env
+    depends_on:
       - postgres
